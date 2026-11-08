@@ -1,0 +1,961 @@
+<mujoco model="hydro_humanoid_v9">
+  <compiler angle="degree" inertiafromgeom="false" autolimits="true"/>
+  <option timestep="0.001" iterations="2" ls_iterations="4" integrator="Euler"><flag eulerdamp="disable"/></option>
+  <default>
+    <joint damping="0.5" armature="0.02" frictionloss="0.2"/>
+    <default class="hj"><joint limited="true" solreflimit="0.004 1"/></default>
+    <default class="arm"><geom contype="4" conaffinity="1" condim="3" friction="0.8 0.02 0.01" rgba="0.3 0.5 0.9 0.25" group="3"/></default>
+    <default class="col"><geom contype="2" conaffinity="5" condim="3" friction="0.9 0.02 0.01" rgba="0.8 0.3 0.2 0.25" group="3"/></default>
+    <default class="sole"><geom contype="2" conaffinity="1" condim="3" friction="1.0 0.02 0.01" rgba="0.2 0.8 0.3 0.4" group="3"/></default>
+    <default class="viz"><geom contype="0" conaffinity="0" group="1" mass="0"/></default>
+  </default>
+  <visual><global offwidth="1600" offheight="1200"/><headlight ambient="0.35 0.35 0.35" diffuse="0.6 0.6 0.6"/><quality shadowsize="4096"/></visual>
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1="0.16 0.17 0.19" rgb2="0.12 0.13 0.14" width="512" height="512"/>
+    <material name="grid" texture="grid" texrepeat="8 8" reflectance="0.1"/>
+    <mesh name="pelvis__anod" file="meshes/pelvis__anod.stl" inertia="shell"/>
+    <mesh name="pelvis__bolt" file="meshes/pelvis__bolt.stl" inertia="shell"/>
+    <mesh name="pelvis__brass" file="meshes/pelvis__brass.stl" inertia="shell"/>
+    <mesh name="pelvis__cast" file="meshes/pelvis__cast.stl" inertia="shell"/>
+    <mesh name="pelvis__castMid" file="meshes/pelvis__castMid.stl" inertia="shell"/>
+    <mesh name="pelvis__hv" file="meshes/pelvis__hv.stl" inertia="shell"/>
+    <mesh name="pelvis__line" file="meshes/pelvis__line.stl" inertia="shell"/>
+    <mesh name="pelvis__loom" file="meshes/pelvis__loom.stl" inertia="shell"/>
+    <mesh name="pelvis__mach" file="meshes/pelvis__mach.stl" inertia="shell"/>
+    <mesh name="pelvis__org" file="meshes/pelvis__org.stl" inertia="shell"/>
+    <mesh name="pelvis__steel" file="meshes/pelvis__steel.stl" inertia="shell"/>
+    <mesh name="pelvis__tagB" file="meshes/pelvis__tagB.stl" inertia="shell"/>
+    <mesh name="pelvis__tagY" file="meshes/pelvis__tagY.stl" inertia="shell"/>
+    <mesh name="carrier__anod" file="meshes/carrier__anod.stl" inertia="shell"/>
+    <mesh name="carrier__bolt" file="meshes/carrier__bolt.stl" inertia="shell"/>
+    <mesh name="carrier__brass" file="meshes/carrier__brass.stl" inertia="shell"/>
+    <mesh name="carrier__mach" file="meshes/carrier__mach.stl" inertia="shell"/>
+    <mesh name="carrier__org" file="meshes/carrier__org.stl" inertia="shell"/>
+    <mesh name="carrier__steel" file="meshes/carrier__steel.stl" inertia="shell"/>
+    <mesh name="spider__brass" file="meshes/spider__brass.stl" inertia="shell"/>
+    <mesh name="spider__mach" file="meshes/spider__mach.stl" inertia="shell"/>
+    <mesh name="spider__steel" file="meshes/spider__steel.stl" inertia="shell"/>
+    <mesh name="torso__anod" file="meshes/torso__anod.stl" inertia="shell"/>
+    <mesh name="torso__anod_1" file="meshes/torso__anod_1.stl" inertia="shell"/>
+    <mesh name="torso__bolt" file="meshes/torso__bolt.stl" inertia="shell"/>
+    <mesh name="torso__brass" file="meshes/torso__brass.stl" inertia="shell"/>
+    <mesh name="torso__cast" file="meshes/torso__cast.stl" inertia="shell"/>
+    <mesh name="torso__castMid" file="meshes/torso__castMid.stl" inertia="shell"/>
+    <mesh name="torso__chip" file="meshes/torso__chip.stl" inertia="shell"/>
+    <mesh name="torso__glass" file="meshes/torso__glass.stl" inertia="shell"/>
+    <mesh name="torso__hv" file="meshes/torso__hv.stl" inertia="shell"/>
+    <mesh name="torso__line" file="meshes/torso__line.stl" inertia="shell"/>
+    <mesh name="torso__line_1" file="meshes/torso__line_1.stl" inertia="shell"/>
+    <mesh name="torso__line_2" file="meshes/torso__line_2.stl" inertia="shell"/>
+    <mesh name="torso__loom" file="meshes/torso__loom.stl" inertia="shell"/>
+    <mesh name="torso__mach" file="meshes/torso__mach.stl" inertia="shell"/>
+    <mesh name="torso__oil" file="meshes/torso__oil.stl" inertia="shell"/>
+    <mesh name="torso__org" file="meshes/torso__org.stl" inertia="shell"/>
+    <mesh name="torso__pcb" file="meshes/torso__pcb.stl" inertia="shell"/>
+    <mesh name="torso__rubber" file="meshes/torso__rubber.stl" inertia="shell"/>
+    <mesh name="torso__steel" file="meshes/torso__steel.stl" inertia="shell"/>
+    <mesh name="torso__tagB" file="meshes/torso__tagB.stl" inertia="shell"/>
+    <mesh name="torso__tagR" file="meshes/torso__tagR.stl" inertia="shell"/>
+    <mesh name="torso__tagY" file="meshes/torso__tagY.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__anod" file="meshes/hipyaw_L__anod.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__bolt" file="meshes/hipyaw_L__bolt.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__brass" file="meshes/hipyaw_L__brass.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__cast" file="meshes/hipyaw_L__cast.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__castMid" file="meshes/hipyaw_L__castMid.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__hv" file="meshes/hipyaw_L__hv.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__line" file="meshes/hipyaw_L__line.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__loom" file="meshes/hipyaw_L__loom.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__mach" file="meshes/hipyaw_L__mach.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__org" file="meshes/hipyaw_L__org.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__steel" file="meshes/hipyaw_L__steel.stl" inertia="shell"/>
+    <mesh name="hipyaw_L__tagY" file="meshes/hipyaw_L__tagY.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__anod" file="meshes/hipyaw_R__anod.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__bolt" file="meshes/hipyaw_R__bolt.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__brass" file="meshes/hipyaw_R__brass.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__cast" file="meshes/hipyaw_R__cast.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__castMid" file="meshes/hipyaw_R__castMid.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__line" file="meshes/hipyaw_R__line.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__loom" file="meshes/hipyaw_R__loom.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__mach" file="meshes/hipyaw_R__mach.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__org" file="meshes/hipyaw_R__org.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__steel" file="meshes/hipyaw_R__steel.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__tagB" file="meshes/hipyaw_R__tagB.stl" inertia="shell"/>
+    <mesh name="hipyaw_R__tagY" file="meshes/hipyaw_R__tagY.stl" inertia="shell"/>
+    <mesh name="hiproll_L__anod" file="meshes/hiproll_L__anod.stl" inertia="shell"/>
+    <mesh name="hiproll_L__bolt" file="meshes/hiproll_L__bolt.stl" inertia="shell"/>
+    <mesh name="hiproll_L__brass" file="meshes/hiproll_L__brass.stl" inertia="shell"/>
+    <mesh name="hiproll_L__cast" file="meshes/hiproll_L__cast.stl" inertia="shell"/>
+    <mesh name="hiproll_L__castMid" file="meshes/hiproll_L__castMid.stl" inertia="shell"/>
+    <mesh name="hiproll_L__line" file="meshes/hiproll_L__line.stl" inertia="shell"/>
+    <mesh name="hiproll_L__loom" file="meshes/hiproll_L__loom.stl" inertia="shell"/>
+    <mesh name="hiproll_L__mach" file="meshes/hiproll_L__mach.stl" inertia="shell"/>
+    <mesh name="hiproll_L__org" file="meshes/hiproll_L__org.stl" inertia="shell"/>
+    <mesh name="hiproll_L__steel" file="meshes/hiproll_L__steel.stl" inertia="shell"/>
+    <mesh name="hiproll_L__tagY" file="meshes/hiproll_L__tagY.stl" inertia="shell"/>
+    <mesh name="hiproll_R__anod" file="meshes/hiproll_R__anod.stl" inertia="shell"/>
+    <mesh name="hiproll_R__bolt" file="meshes/hiproll_R__bolt.stl" inertia="shell"/>
+    <mesh name="hiproll_R__brass" file="meshes/hiproll_R__brass.stl" inertia="shell"/>
+    <mesh name="hiproll_R__cast" file="meshes/hiproll_R__cast.stl" inertia="shell"/>
+    <mesh name="hiproll_R__castMid" file="meshes/hiproll_R__castMid.stl" inertia="shell"/>
+    <mesh name="hiproll_R__line" file="meshes/hiproll_R__line.stl" inertia="shell"/>
+    <mesh name="hiproll_R__loom" file="meshes/hiproll_R__loom.stl" inertia="shell"/>
+    <mesh name="hiproll_R__mach" file="meshes/hiproll_R__mach.stl" inertia="shell"/>
+    <mesh name="hiproll_R__org" file="meshes/hiproll_R__org.stl" inertia="shell"/>
+    <mesh name="hiproll_R__steel" file="meshes/hiproll_R__steel.stl" inertia="shell"/>
+    <mesh name="hiproll_R__tagY" file="meshes/hiproll_R__tagY.stl" inertia="shell"/>
+    <mesh name="thigh_L__anod" file="meshes/thigh_L__anod.stl" inertia="shell"/>
+    <mesh name="thigh_L__bolt" file="meshes/thigh_L__bolt.stl" inertia="shell"/>
+    <mesh name="thigh_L__brass" file="meshes/thigh_L__brass.stl" inertia="shell"/>
+    <mesh name="thigh_L__castMid" file="meshes/thigh_L__castMid.stl" inertia="shell"/>
+    <mesh name="thigh_L__hv" file="meshes/thigh_L__hv.stl" inertia="shell"/>
+    <mesh name="thigh_L__line" file="meshes/thigh_L__line.stl" inertia="shell"/>
+    <mesh name="thigh_L__loom" file="meshes/thigh_L__loom.stl" inertia="shell"/>
+    <mesh name="thigh_L__mach" file="meshes/thigh_L__mach.stl" inertia="shell"/>
+    <mesh name="thigh_L__org" file="meshes/thigh_L__org.stl" inertia="shell"/>
+    <mesh name="thigh_L__steel" file="meshes/thigh_L__steel.stl" inertia="shell"/>
+    <mesh name="thigh_L__tagY" file="meshes/thigh_L__tagY.stl" inertia="shell"/>
+    <mesh name="thigh_R__anod" file="meshes/thigh_R__anod.stl" inertia="shell"/>
+    <mesh name="thigh_R__bolt" file="meshes/thigh_R__bolt.stl" inertia="shell"/>
+    <mesh name="thigh_R__brass" file="meshes/thigh_R__brass.stl" inertia="shell"/>
+    <mesh name="thigh_R__castMid" file="meshes/thigh_R__castMid.stl" inertia="shell"/>
+    <mesh name="thigh_R__line" file="meshes/thigh_R__line.stl" inertia="shell"/>
+    <mesh name="thigh_R__loom" file="meshes/thigh_R__loom.stl" inertia="shell"/>
+    <mesh name="thigh_R__mach" file="meshes/thigh_R__mach.stl" inertia="shell"/>
+    <mesh name="thigh_R__org" file="meshes/thigh_R__org.stl" inertia="shell"/>
+    <mesh name="thigh_R__steel" file="meshes/thigh_R__steel.stl" inertia="shell"/>
+    <mesh name="thigh_R__tagB" file="meshes/thigh_R__tagB.stl" inertia="shell"/>
+    <mesh name="thigh_R__tagY" file="meshes/thigh_R__tagY.stl" inertia="shell"/>
+    <mesh name="shin_L__anod" file="meshes/shin_L__anod.stl" inertia="shell"/>
+    <mesh name="shin_L__bolt" file="meshes/shin_L__bolt.stl" inertia="shell"/>
+    <mesh name="shin_L__brass" file="meshes/shin_L__brass.stl" inertia="shell"/>
+    <mesh name="shin_L__cast" file="meshes/shin_L__cast.stl" inertia="shell"/>
+    <mesh name="shin_L__hv" file="meshes/shin_L__hv.stl" inertia="shell"/>
+    <mesh name="shin_L__line" file="meshes/shin_L__line.stl" inertia="shell"/>
+    <mesh name="shin_L__loom" file="meshes/shin_L__loom.stl" inertia="shell"/>
+    <mesh name="shin_L__mach" file="meshes/shin_L__mach.stl" inertia="shell"/>
+    <mesh name="shin_L__org" file="meshes/shin_L__org.stl" inertia="shell"/>
+    <mesh name="shin_L__steel" file="meshes/shin_L__steel.stl" inertia="shell"/>
+    <mesh name="shin_L__tagY" file="meshes/shin_L__tagY.stl" inertia="shell"/>
+    <mesh name="shin_R__anod" file="meshes/shin_R__anod.stl" inertia="shell"/>
+    <mesh name="shin_R__bolt" file="meshes/shin_R__bolt.stl" inertia="shell"/>
+    <mesh name="shin_R__brass" file="meshes/shin_R__brass.stl" inertia="shell"/>
+    <mesh name="shin_R__cast" file="meshes/shin_R__cast.stl" inertia="shell"/>
+    <mesh name="shin_R__line" file="meshes/shin_R__line.stl" inertia="shell"/>
+    <mesh name="shin_R__loom" file="meshes/shin_R__loom.stl" inertia="shell"/>
+    <mesh name="shin_R__mach" file="meshes/shin_R__mach.stl" inertia="shell"/>
+    <mesh name="shin_R__org" file="meshes/shin_R__org.stl" inertia="shell"/>
+    <mesh name="shin_R__steel" file="meshes/shin_R__steel.stl" inertia="shell"/>
+    <mesh name="shin_R__tagB" file="meshes/shin_R__tagB.stl" inertia="shell"/>
+    <mesh name="shin_R__tagY" file="meshes/shin_R__tagY.stl" inertia="shell"/>
+    <mesh name="ankspider_L__mach" file="meshes/ankspider_L__mach.stl" inertia="shell"/>
+    <mesh name="ankspider_L__steel" file="meshes/ankspider_L__steel.stl" inertia="shell"/>
+    <mesh name="ankspider_R__mach" file="meshes/ankspider_R__mach.stl" inertia="shell"/>
+    <mesh name="ankspider_R__steel" file="meshes/ankspider_R__steel.stl" inertia="shell"/>
+    <mesh name="foot_L__anod" file="meshes/foot_L__anod.stl" inertia="shell"/>
+    <mesh name="foot_L__bolt" file="meshes/foot_L__bolt.stl" inertia="shell"/>
+    <mesh name="foot_L__cast" file="meshes/foot_L__cast.stl" inertia="shell"/>
+    <mesh name="foot_L__loom" file="meshes/foot_L__loom.stl" inertia="shell"/>
+    <mesh name="foot_L__mach" file="meshes/foot_L__mach.stl" inertia="shell"/>
+    <mesh name="foot_L__org" file="meshes/foot_L__org.stl" inertia="shell"/>
+    <mesh name="foot_L__rubber" file="meshes/foot_L__rubber.stl" inertia="shell"/>
+    <mesh name="foot_L__steel" file="meshes/foot_L__steel.stl" inertia="shell"/>
+    <mesh name="foot_L__tagY" file="meshes/foot_L__tagY.stl" inertia="shell"/>
+    <mesh name="foot_R__anod" file="meshes/foot_R__anod.stl" inertia="shell"/>
+    <mesh name="foot_R__bolt" file="meshes/foot_R__bolt.stl" inertia="shell"/>
+    <mesh name="foot_R__cast" file="meshes/foot_R__cast.stl" inertia="shell"/>
+    <mesh name="foot_R__loom" file="meshes/foot_R__loom.stl" inertia="shell"/>
+    <mesh name="foot_R__mach" file="meshes/foot_R__mach.stl" inertia="shell"/>
+    <mesh name="foot_R__org" file="meshes/foot_R__org.stl" inertia="shell"/>
+    <mesh name="foot_R__rubber" file="meshes/foot_R__rubber.stl" inertia="shell"/>
+    <mesh name="foot_R__steel" file="meshes/foot_R__steel.stl" inertia="shell"/>
+    <mesh name="foot_R__tagY" file="meshes/foot_R__tagY.stl" inertia="shell"/>
+    <mesh name="shpitch_L__anod" file="meshes/shpitch_L__anod.stl" inertia="shell"/>
+    <mesh name="shpitch_L__bolt" file="meshes/shpitch_L__bolt.stl" inertia="shell"/>
+    <mesh name="shpitch_L__brass" file="meshes/shpitch_L__brass.stl" inertia="shell"/>
+    <mesh name="shpitch_L__cast" file="meshes/shpitch_L__cast.stl" inertia="shell"/>
+    <mesh name="shpitch_L__castMid" file="meshes/shpitch_L__castMid.stl" inertia="shell"/>
+    <mesh name="shpitch_L__loom" file="meshes/shpitch_L__loom.stl" inertia="shell"/>
+    <mesh name="shpitch_L__mach" file="meshes/shpitch_L__mach.stl" inertia="shell"/>
+    <mesh name="shpitch_L__steel" file="meshes/shpitch_L__steel.stl" inertia="shell"/>
+    <mesh name="shpitch_L__tagY" file="meshes/shpitch_L__tagY.stl" inertia="shell"/>
+    <mesh name="shpitch_R__anod" file="meshes/shpitch_R__anod.stl" inertia="shell"/>
+    <mesh name="shpitch_R__bolt" file="meshes/shpitch_R__bolt.stl" inertia="shell"/>
+    <mesh name="shpitch_R__brass" file="meshes/shpitch_R__brass.stl" inertia="shell"/>
+    <mesh name="shpitch_R__cast" file="meshes/shpitch_R__cast.stl" inertia="shell"/>
+    <mesh name="shpitch_R__castMid" file="meshes/shpitch_R__castMid.stl" inertia="shell"/>
+    <mesh name="shpitch_R__loom" file="meshes/shpitch_R__loom.stl" inertia="shell"/>
+    <mesh name="shpitch_R__mach" file="meshes/shpitch_R__mach.stl" inertia="shell"/>
+    <mesh name="shpitch_R__steel" file="meshes/shpitch_R__steel.stl" inertia="shell"/>
+    <mesh name="shpitch_R__tagY" file="meshes/shpitch_R__tagY.stl" inertia="shell"/>
+    <mesh name="shroll_L__anod" file="meshes/shroll_L__anod.stl" inertia="shell"/>
+    <mesh name="shroll_L__brass" file="meshes/shroll_L__brass.stl" inertia="shell"/>
+    <mesh name="shroll_L__cast" file="meshes/shroll_L__cast.stl" inertia="shell"/>
+    <mesh name="shroll_L__castMid" file="meshes/shroll_L__castMid.stl" inertia="shell"/>
+    <mesh name="shroll_L__line" file="meshes/shroll_L__line.stl" inertia="shell"/>
+    <mesh name="shroll_L__loom" file="meshes/shroll_L__loom.stl" inertia="shell"/>
+    <mesh name="shroll_L__mach" file="meshes/shroll_L__mach.stl" inertia="shell"/>
+    <mesh name="shroll_L__org" file="meshes/shroll_L__org.stl" inertia="shell"/>
+    <mesh name="shroll_L__tagY" file="meshes/shroll_L__tagY.stl" inertia="shell"/>
+    <mesh name="shroll_R__anod" file="meshes/shroll_R__anod.stl" inertia="shell"/>
+    <mesh name="shroll_R__brass" file="meshes/shroll_R__brass.stl" inertia="shell"/>
+    <mesh name="shroll_R__cast" file="meshes/shroll_R__cast.stl" inertia="shell"/>
+    <mesh name="shroll_R__castMid" file="meshes/shroll_R__castMid.stl" inertia="shell"/>
+    <mesh name="shroll_R__line" file="meshes/shroll_R__line.stl" inertia="shell"/>
+    <mesh name="shroll_R__loom" file="meshes/shroll_R__loom.stl" inertia="shell"/>
+    <mesh name="shroll_R__mach" file="meshes/shroll_R__mach.stl" inertia="shell"/>
+    <mesh name="shroll_R__tagB" file="meshes/shroll_R__tagB.stl" inertia="shell"/>
+    <mesh name="shroll_R__tagY" file="meshes/shroll_R__tagY.stl" inertia="shell"/>
+    <mesh name="uarm_L__anod" file="meshes/uarm_L__anod.stl" inertia="shell"/>
+    <mesh name="uarm_L__bolt" file="meshes/uarm_L__bolt.stl" inertia="shell"/>
+    <mesh name="uarm_L__brass" file="meshes/uarm_L__brass.stl" inertia="shell"/>
+    <mesh name="uarm_L__cast" file="meshes/uarm_L__cast.stl" inertia="shell"/>
+    <mesh name="uarm_L__line" file="meshes/uarm_L__line.stl" inertia="shell"/>
+    <mesh name="uarm_L__loom" file="meshes/uarm_L__loom.stl" inertia="shell"/>
+    <mesh name="uarm_L__mach" file="meshes/uarm_L__mach.stl" inertia="shell"/>
+    <mesh name="uarm_L__org" file="meshes/uarm_L__org.stl" inertia="shell"/>
+    <mesh name="uarm_L__steel" file="meshes/uarm_L__steel.stl" inertia="shell"/>
+    <mesh name="uarm_L__tagY" file="meshes/uarm_L__tagY.stl" inertia="shell"/>
+    <mesh name="uarm_R__anod" file="meshes/uarm_R__anod.stl" inertia="shell"/>
+    <mesh name="uarm_R__bolt" file="meshes/uarm_R__bolt.stl" inertia="shell"/>
+    <mesh name="uarm_R__brass" file="meshes/uarm_R__brass.stl" inertia="shell"/>
+    <mesh name="uarm_R__cast" file="meshes/uarm_R__cast.stl" inertia="shell"/>
+    <mesh name="uarm_R__line" file="meshes/uarm_R__line.stl" inertia="shell"/>
+    <mesh name="uarm_R__loom" file="meshes/uarm_R__loom.stl" inertia="shell"/>
+    <mesh name="uarm_R__mach" file="meshes/uarm_R__mach.stl" inertia="shell"/>
+    <mesh name="uarm_R__steel" file="meshes/uarm_R__steel.stl" inertia="shell"/>
+    <mesh name="uarm_R__tagB" file="meshes/uarm_R__tagB.stl" inertia="shell"/>
+    <mesh name="uarm_R__tagY" file="meshes/uarm_R__tagY.stl" inertia="shell"/>
+    <mesh name="farm_L__anod" file="meshes/farm_L__anod.stl" inertia="shell"/>
+    <mesh name="farm_L__brass" file="meshes/farm_L__brass.stl" inertia="shell"/>
+    <mesh name="farm_L__cast" file="meshes/farm_L__cast.stl" inertia="shell"/>
+    <mesh name="farm_L__castMid" file="meshes/farm_L__castMid.stl" inertia="shell"/>
+    <mesh name="farm_L__line" file="meshes/farm_L__line.stl" inertia="shell"/>
+    <mesh name="farm_L__loom" file="meshes/farm_L__loom.stl" inertia="shell"/>
+    <mesh name="farm_L__mach" file="meshes/farm_L__mach.stl" inertia="shell"/>
+    <mesh name="farm_L__org" file="meshes/farm_L__org.stl" inertia="shell"/>
+    <mesh name="farm_L__tagY" file="meshes/farm_L__tagY.stl" inertia="shell"/>
+    <mesh name="farm_R__anod" file="meshes/farm_R__anod.stl" inertia="shell"/>
+    <mesh name="farm_R__brass" file="meshes/farm_R__brass.stl" inertia="shell"/>
+    <mesh name="farm_R__cast" file="meshes/farm_R__cast.stl" inertia="shell"/>
+    <mesh name="farm_R__castMid" file="meshes/farm_R__castMid.stl" inertia="shell"/>
+    <mesh name="farm_R__line" file="meshes/farm_R__line.stl" inertia="shell"/>
+    <mesh name="farm_R__loom" file="meshes/farm_R__loom.stl" inertia="shell"/>
+    <mesh name="farm_R__mach" file="meshes/farm_R__mach.stl" inertia="shell"/>
+    <mesh name="farm_R__tagB" file="meshes/farm_R__tagB.stl" inertia="shell"/>
+    <mesh name="farm_R__tagY" file="meshes/farm_R__tagY.stl" inertia="shell"/>
+    <mesh name="farm2_L__anod" file="meshes/farm2_L__anod.stl" inertia="shell"/>
+    <mesh name="farm2_L__bolt" file="meshes/farm2_L__bolt.stl" inertia="shell"/>
+    <mesh name="farm2_L__brass" file="meshes/farm2_L__brass.stl" inertia="shell"/>
+    <mesh name="farm2_L__cast" file="meshes/farm2_L__cast.stl" inertia="shell"/>
+    <mesh name="farm2_L__line" file="meshes/farm2_L__line.stl" inertia="shell"/>
+    <mesh name="farm2_L__loom" file="meshes/farm2_L__loom.stl" inertia="shell"/>
+    <mesh name="farm2_L__mach" file="meshes/farm2_L__mach.stl" inertia="shell"/>
+    <mesh name="farm2_L__org" file="meshes/farm2_L__org.stl" inertia="shell"/>
+    <mesh name="farm2_L__steel" file="meshes/farm2_L__steel.stl" inertia="shell"/>
+    <mesh name="farm2_L__tagY" file="meshes/farm2_L__tagY.stl" inertia="shell"/>
+    <mesh name="farm2_R__anod" file="meshes/farm2_R__anod.stl" inertia="shell"/>
+    <mesh name="farm2_R__bolt" file="meshes/farm2_R__bolt.stl" inertia="shell"/>
+    <mesh name="farm2_R__brass" file="meshes/farm2_R__brass.stl" inertia="shell"/>
+    <mesh name="farm2_R__cast" file="meshes/farm2_R__cast.stl" inertia="shell"/>
+    <mesh name="farm2_R__line" file="meshes/farm2_R__line.stl" inertia="shell"/>
+    <mesh name="farm2_R__loom" file="meshes/farm2_R__loom.stl" inertia="shell"/>
+    <mesh name="farm2_R__mach" file="meshes/farm2_R__mach.stl" inertia="shell"/>
+    <mesh name="farm2_R__steel" file="meshes/farm2_R__steel.stl" inertia="shell"/>
+    <mesh name="farm2_R__tagB" file="meshes/farm2_R__tagB.stl" inertia="shell"/>
+    <mesh name="farm2_R__tagY" file="meshes/farm2_R__tagY.stl" inertia="shell"/>
+    <mesh name="wrist_L__anod" file="meshes/wrist_L__anod.stl" inertia="shell"/>
+    <mesh name="wrist_L__bolt" file="meshes/wrist_L__bolt.stl" inertia="shell"/>
+    <mesh name="wrist_L__brass" file="meshes/wrist_L__brass.stl" inertia="shell"/>
+    <mesh name="wrist_L__cast" file="meshes/wrist_L__cast.stl" inertia="shell"/>
+    <mesh name="wrist_L__loom" file="meshes/wrist_L__loom.stl" inertia="shell"/>
+    <mesh name="wrist_L__mach" file="meshes/wrist_L__mach.stl" inertia="shell"/>
+    <mesh name="wrist_L__org" file="meshes/wrist_L__org.stl" inertia="shell"/>
+    <mesh name="wrist_L__steel" file="meshes/wrist_L__steel.stl" inertia="shell"/>
+    <mesh name="wrist_L__tagY" file="meshes/wrist_L__tagY.stl" inertia="shell"/>
+    <mesh name="wrist_R__anod" file="meshes/wrist_R__anod.stl" inertia="shell"/>
+    <mesh name="wrist_R__bolt" file="meshes/wrist_R__bolt.stl" inertia="shell"/>
+    <mesh name="wrist_R__brass" file="meshes/wrist_R__brass.stl" inertia="shell"/>
+    <mesh name="wrist_R__cast" file="meshes/wrist_R__cast.stl" inertia="shell"/>
+    <mesh name="wrist_R__loom" file="meshes/wrist_R__loom.stl" inertia="shell"/>
+    <mesh name="wrist_R__mach" file="meshes/wrist_R__mach.stl" inertia="shell"/>
+    <mesh name="wrist_R__steel" file="meshes/wrist_R__steel.stl" inertia="shell"/>
+    <mesh name="wrist_R__tagB" file="meshes/wrist_R__tagB.stl" inertia="shell"/>
+    <mesh name="wrist_R__tagY" file="meshes/wrist_R__tagY.stl" inertia="shell"/>
+    <mesh name="flange_L__anod" file="meshes/flange_L__anod.stl" inertia="shell"/>
+    <mesh name="flange_L__bolt" file="meshes/flange_L__bolt.stl" inertia="shell"/>
+    <mesh name="flange_L__loom" file="meshes/flange_L__loom.stl" inertia="shell"/>
+    <mesh name="flange_L__mach" file="meshes/flange_L__mach.stl" inertia="shell"/>
+    <mesh name="flange_L__steel" file="meshes/flange_L__steel.stl" inertia="shell"/>
+    <mesh name="flange_L__tagY" file="meshes/flange_L__tagY.stl" inertia="shell"/>
+    <mesh name="flange_R__anod" file="meshes/flange_R__anod.stl" inertia="shell"/>
+    <mesh name="flange_R__bolt" file="meshes/flange_R__bolt.stl" inertia="shell"/>
+    <mesh name="flange_R__loom" file="meshes/flange_R__loom.stl" inertia="shell"/>
+    <mesh name="flange_R__mach" file="meshes/flange_R__mach.stl" inertia="shell"/>
+    <mesh name="flange_R__steel" file="meshes/flange_R__steel.stl" inertia="shell"/>
+    <mesh name="flange_R__tagY" file="meshes/flange_R__tagY.stl" inertia="shell"/>
+    <mesh name="tribarrel_L__anod" file="meshes/tribarrel_L__anod.stl" inertia="shell"/>
+    <mesh name="tribarrel_L__cast" file="meshes/tribarrel_L__cast.stl" inertia="shell"/>
+    <mesh name="tribarrel_L__mach" file="meshes/tribarrel_L__mach.stl" inertia="shell"/>
+    <mesh name="tribarrel_L__steel" file="meshes/tribarrel_L__steel.stl" inertia="shell"/>
+    <mesh name="trirod_L__mach" file="meshes/trirod_L__mach.stl" inertia="shell"/>
+    <mesh name="trirod_L__steel" file="meshes/trirod_L__steel.stl" inertia="shell"/>
+    <mesh name="rocker_L__cast" file="meshes/rocker_L__cast.stl" inertia="shell"/>
+    <mesh name="rocker_L__mach" file="meshes/rocker_L__mach.stl" inertia="shell"/>
+    <mesh name="rocker_L__steel" file="meshes/rocker_L__steel.stl" inertia="shell"/>
+    <mesh name="coupler_L__cast" file="meshes/coupler_L__cast.stl" inertia="shell"/>
+    <mesh name="quadbarrel_L__anod" file="meshes/quadbarrel_L__anod.stl" inertia="shell"/>
+    <mesh name="quadbarrel_L__brass" file="meshes/quadbarrel_L__brass.stl" inertia="shell"/>
+    <mesh name="quadbarrel_L__cast" file="meshes/quadbarrel_L__cast.stl" inertia="shell"/>
+    <mesh name="quadbarrel_L__mach" file="meshes/quadbarrel_L__mach.stl" inertia="shell"/>
+    <mesh name="quadbarrel_L__steel" file="meshes/quadbarrel_L__steel.stl" inertia="shell"/>
+    <mesh name="quadrod_L__mach" file="meshes/quadrod_L__mach.stl" inertia="shell"/>
+    <mesh name="quadrod_L__steel" file="meshes/quadrod_L__steel.stl" inertia="shell"/>
+    <mesh name="achbarrel_L0__anod" file="meshes/achbarrel_L0__anod.stl" inertia="shell"/>
+    <mesh name="achbarrel_L0__cast" file="meshes/achbarrel_L0__cast.stl" inertia="shell"/>
+    <mesh name="achbarrel_L0__mach" file="meshes/achbarrel_L0__mach.stl" inertia="shell"/>
+    <mesh name="achbarrel_L0__steel" file="meshes/achbarrel_L0__steel.stl" inertia="shell"/>
+    <mesh name="achbarrel_L1__anod" file="meshes/achbarrel_L1__anod.stl" inertia="shell"/>
+    <mesh name="achbarrel_L1__cast" file="meshes/achbarrel_L1__cast.stl" inertia="shell"/>
+    <mesh name="achbarrel_L1__mach" file="meshes/achbarrel_L1__mach.stl" inertia="shell"/>
+    <mesh name="achbarrel_L1__steel" file="meshes/achbarrel_L1__steel.stl" inertia="shell"/>
+    <mesh name="achrod_L0__mach" file="meshes/achrod_L0__mach.stl" inertia="shell"/>
+    <mesh name="achrod_L0__steel" file="meshes/achrod_L0__steel.stl" inertia="shell"/>
+    <mesh name="achrod_L1__mach" file="meshes/achrod_L1__mach.stl" inertia="shell"/>
+    <mesh name="achrod_L1__steel" file="meshes/achrod_L1__steel.stl" inertia="shell"/>
+    <mesh name="tribarrel_R__anod" file="meshes/tribarrel_R__anod.stl" inertia="shell"/>
+    <mesh name="tribarrel_R__cast" file="meshes/tribarrel_R__cast.stl" inertia="shell"/>
+    <mesh name="tribarrel_R__mach" file="meshes/tribarrel_R__mach.stl" inertia="shell"/>
+    <mesh name="tribarrel_R__steel" file="meshes/tribarrel_R__steel.stl" inertia="shell"/>
+    <mesh name="trirod_R__mach" file="meshes/trirod_R__mach.stl" inertia="shell"/>
+    <mesh name="trirod_R__steel" file="meshes/trirod_R__steel.stl" inertia="shell"/>
+    <mesh name="rocker_R__cast" file="meshes/rocker_R__cast.stl" inertia="shell"/>
+    <mesh name="rocker_R__mach" file="meshes/rocker_R__mach.stl" inertia="shell"/>
+    <mesh name="rocker_R__steel" file="meshes/rocker_R__steel.stl" inertia="shell"/>
+    <mesh name="coupler_R__cast" file="meshes/coupler_R__cast.stl" inertia="shell"/>
+    <mesh name="quadbarrel_R__anod" file="meshes/quadbarrel_R__anod.stl" inertia="shell"/>
+    <mesh name="quadbarrel_R__brass" file="meshes/quadbarrel_R__brass.stl" inertia="shell"/>
+    <mesh name="quadbarrel_R__cast" file="meshes/quadbarrel_R__cast.stl" inertia="shell"/>
+    <mesh name="quadbarrel_R__mach" file="meshes/quadbarrel_R__mach.stl" inertia="shell"/>
+    <mesh name="quadbarrel_R__steel" file="meshes/quadbarrel_R__steel.stl" inertia="shell"/>
+    <mesh name="quadrod_R__mach" file="meshes/quadrod_R__mach.stl" inertia="shell"/>
+    <mesh name="quadrod_R__steel" file="meshes/quadrod_R__steel.stl" inertia="shell"/>
+    <mesh name="achbarrel_R0__anod" file="meshes/achbarrel_R0__anod.stl" inertia="shell"/>
+    <mesh name="achbarrel_R0__cast" file="meshes/achbarrel_R0__cast.stl" inertia="shell"/>
+    <mesh name="achbarrel_R0__mach" file="meshes/achbarrel_R0__mach.stl" inertia="shell"/>
+    <mesh name="achbarrel_R0__steel" file="meshes/achbarrel_R0__steel.stl" inertia="shell"/>
+    <mesh name="achbarrel_R1__anod" file="meshes/achbarrel_R1__anod.stl" inertia="shell"/>
+    <mesh name="achbarrel_R1__cast" file="meshes/achbarrel_R1__cast.stl" inertia="shell"/>
+    <mesh name="achbarrel_R1__mach" file="meshes/achbarrel_R1__mach.stl" inertia="shell"/>
+    <mesh name="achbarrel_R1__steel" file="meshes/achbarrel_R1__steel.stl" inertia="shell"/>
+    <mesh name="achrod_R0__mach" file="meshes/achrod_R0__mach.stl" inertia="shell"/>
+    <mesh name="achrod_R0__steel" file="meshes/achrod_R0__steel.stl" inertia="shell"/>
+    <mesh name="achrod_R1__mach" file="meshes/achrod_R1__mach.stl" inertia="shell"/>
+    <mesh name="achrod_R1__steel" file="meshes/achrod_R1__steel.stl" inertia="shell"/>
+    <mesh name="pumpshaft__brass" file="meshes/pumpshaft__brass.stl" inertia="shell"/>
+    <mesh name="pumpshaft__mach" file="meshes/pumpshaft__mach.stl" inertia="shell"/>
+    <mesh name="pumpshaft__pinion" file="meshes/pumpshaft__pinion.stl" inertia="shell"/>
+    <mesh name="pumpshaft__steel" file="meshes/pumpshaft__steel.stl" inertia="shell"/>
+    <mesh name="pumpshaft__tagR" file="meshes/pumpshaft__tagR.stl" inertia="shell"/>
+    <mesh name="pumpring__gear" file="meshes/pumpring__gear.stl" inertia="shell"/>
+    <mesh name="waistbarrel_L__anod" file="meshes/waistbarrel_L__anod.stl" inertia="shell"/>
+    <mesh name="waistbarrel_L__cast" file="meshes/waistbarrel_L__cast.stl" inertia="shell"/>
+    <mesh name="waistbarrel_L__mach" file="meshes/waistbarrel_L__mach.stl" inertia="shell"/>
+    <mesh name="waistbarrel_L__steel" file="meshes/waistbarrel_L__steel.stl" inertia="shell"/>
+    <mesh name="waistrod_L__mach" file="meshes/waistrod_L__mach.stl" inertia="shell"/>
+    <mesh name="waistrod_L__steel" file="meshes/waistrod_L__steel.stl" inertia="shell"/>
+    <mesh name="waistbarrel_R__anod" file="meshes/waistbarrel_R__anod.stl" inertia="shell"/>
+    <mesh name="waistbarrel_R__cast" file="meshes/waistbarrel_R__cast.stl" inertia="shell"/>
+    <mesh name="waistbarrel_R__mach" file="meshes/waistbarrel_R__mach.stl" inertia="shell"/>
+    <mesh name="waistbarrel_R__steel" file="meshes/waistbarrel_R__steel.stl" inertia="shell"/>
+    <mesh name="waistrod_R__mach" file="meshes/waistrod_R__mach.stl" inertia="shell"/>
+    <mesh name="waistrod_R__steel" file="meshes/waistrod_R__steel.stl" inertia="shell"/>
+  </asset>
+  <worldbody>
+    <light pos="2 -2 4" dir="-1 1 -2" directional="true" castshadow="true"/>
+    <geom name="floor" type="plane" size="0 0 0.05" material="grid" contype="1" conaffinity="1" friction="1 0.02 0.01"/>
+    <body name="pelvis" pos="-0.03000 0.00000 0.97926">
+      <freejoint name="root"/>
+      <inertial pos="0.02498 0.00073 0.00198" mass="2.6383" fullinertia="0.018290 0.009176 0.022853 0.000027 0.001536 -0.000068"/>
+      <geom type="box" pos="0.00000 0.00000 0.00000" size="0.07500 0.11250 0.03000" class="col"/>
+      <site name="imu" pos="0 0 0"/>
+      <geom type="mesh" mesh="pelvis__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__hv" rgba="0.878 0.376 0.102 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+      <geom type="mesh" mesh="pelvis__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+      <body name="carrier" pos="0.00000 0.00000 0.03750">
+        <joint name="waist_yaw" axis="0.00000 0.00000 1.00000" range="-40 40" class="hj"/>
+        <inertial pos="-0.03703 0.00048 0.06558" mass="1.2525" fullinertia="0.010435 0.004395 0.009959 -0.000022 0.001196 -0.000010"/>
+        <geom type="mesh" mesh="carrier__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+        <geom type="mesh" mesh="carrier__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+        <geom type="mesh" mesh="carrier__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+        <geom type="mesh" mesh="carrier__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+        <geom type="mesh" mesh="carrier__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+        <geom type="mesh" mesh="carrier__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+        <body name="spider" pos="0.00000 0.00000 0.08250">
+          <joint name="waist_pitch" axis="0.00000 1.00000 0.00000" range="-25 25" class="hj"/>
+          <inertial pos="-0.00000 -0.00000 0.00002" mass="0.2862" fullinertia="0.000098 0.000098 0.000186 0.000000 -0.000000 0.000000"/>
+          <geom type="mesh" mesh="spider__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+          <geom type="mesh" mesh="spider__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+          <geom type="mesh" mesh="spider__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+          <body name="torso" pos="0.00000 0.00000 0.00000">
+            <joint name="waist_roll" axis="1.00000 0.00000 0.00000" range="-20 20" class="hj"/>
+            <inertial pos="-0.01021 0.02116 0.39811" mass="102.7007" fullinertia="4.247265 3.976727 3.344938 -0.139573 -0.111026 -0.103688"/>
+            <geom type="box" pos="-0.04500 0.00000 0.37500" size="0.18750 0.30000 0.30000" class="col"/>
+            <geom type="mesh" mesh="torso__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+            <geom type="mesh" mesh="torso__anod_1" rgba="0.110 0.118 0.133 1" class="viz"/>
+            <geom type="mesh" mesh="torso__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+            <geom type="mesh" mesh="torso__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+            <geom type="mesh" mesh="torso__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+            <geom type="mesh" mesh="torso__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+            <geom type="mesh" mesh="torso__chip" rgba="0.051 0.051 0.051 1" class="viz"/>
+            <geom type="mesh" mesh="torso__glass" rgba="0.812 0.902 1.000 0.12" class="viz"/>
+            <geom type="mesh" mesh="torso__hv" rgba="0.878 0.376 0.102 1" class="viz"/>
+            <geom type="mesh" mesh="torso__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+            <geom type="mesh" mesh="torso__line_1" rgba="0.086 0.086 0.086 1" class="viz"/>
+            <geom type="mesh" mesh="torso__line_2" rgba="0.086 0.086 0.086 1" class="viz"/>
+            <geom type="mesh" mesh="torso__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+            <geom type="mesh" mesh="torso__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+            <geom type="mesh" mesh="torso__oil" rgba="0.910 0.541 0.000 0.22" class="viz"/>
+            <geom type="mesh" mesh="torso__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+            <geom type="mesh" mesh="torso__pcb" rgba="0.114 0.369 0.204 1" class="viz"/>
+            <geom type="mesh" mesh="torso__rubber" rgba="0.082 0.082 0.082 1" class="viz"/>
+            <geom type="mesh" mesh="torso__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+            <geom type="mesh" mesh="torso__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+            <geom type="mesh" mesh="torso__tagR" rgba="0.769 0.188 0.118 1" class="viz"/>
+            <geom type="mesh" mesh="torso__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+            <body name="shpitch_L" pos="0.00000 0.36300 0.63750">
+              <joint name="shoulder_pitch_L" axis="0.00000 -1.00000 0.00000" range="-60 170" class="hj"/>
+              <inertial pos="0.00097 0.07025 0.00065" mass="1.0014" fullinertia="0.001057 0.001022 0.001134 0.000012 0.000012 -0.000014"/>
+              <geom type="mesh" mesh="shpitch_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+              <body name="shroll_L" pos="0.00000 0.08400 0.00000">
+                <joint name="shoulder_roll_L" axis="1.00000 0.00000 0.00000" range="-15 110" class="hj"/>
+                <inertial pos="-0.00135 -0.00219 -0.06144" mass="0.2594" fullinertia="0.000142 0.000148 0.000168 0.000001 -0.000002 -0.000004"/>
+                <geom type="mesh" mesh="shroll_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                <body name="uarm_L" pos="0.00000 0.00000 -0.06150">
+                  <joint name="shoulder_yaw_L" axis="0.00000 0.00000 1.00000" range="-90 90" class="hj"/>
+                  <inertial pos="0.01712 0.00638 -0.12898" mass="2.1595" fullinertia="0.018358 0.021350 0.004590 0.000189 -0.003627 0.000705"/>
+                  <geom type="capsule" fromto="0.00000 0.00000 -0.02850 -0.00750 0.00000 -0.24600" size="0.0360" class="arm"/>
+                  <geom type="mesh" mesh="uarm_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                  <body name="farm_L" pos="0.00000 0.00000 -0.26850">
+                    <joint name="elbow_L" axis="0.00000 -1.00000 0.00000" range="0 110" class="hj"/>
+                    <inertial pos="-0.01378 0.00555 -0.01786" mass="0.4173" fullinertia="0.001133 0.001264 0.000507 -0.000071 0.000404 0.000014"/>
+                    <geom type="mesh" mesh="farm_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                    <body name="farm2_L" pos="0.00000 0.00000 -0.07950">
+                      <joint name="forearm_roll_L" axis="0.00000 0.00000 1.00000" range="-90 90" class="hj"/>
+                      <inertial pos="0.02017 0.01877 -0.08264" mass="0.7815" fullinertia="0.005009 0.005097 0.000850 -0.000266 -0.000684 -0.000594"/>
+                      <geom type="capsule" fromto="0.00000 0.00000 -0.00300 0.00000 0.00000 -0.17550" size="0.0300" class="arm"/>
+                      <geom type="mesh" mesh="farm2_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                      <body name="wrist_L" pos="0.00000 0.00000 -0.16800">
+                        <joint name="wrist_pitch_L" axis="0.00000 -1.00000 0.00000" range="-70 70" class="hj"/>
+                        <inertial pos="0.00612 0.00039 -0.04924" mass="0.1305" fullinertia="0.000038 0.000054 0.000050 -0.000003 0.000001 -0.000000"/>
+                        <geom type="mesh" mesh="wrist_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                        <body name="flange_L" pos="0.00000 0.00000 -0.05400">
+                          <joint name="wrist_yaw_L" axis="1.00000 0.00000 0.00000" range="-40 40" class="hj"/>
+                          <inertial pos="0.00002 0.00011 -0.03163" mass="0.0721" fullinertia="0.000016 0.000016 0.000027 0.000000 -0.000000 -0.000000"/>
+                          <geom type="box" pos="0.00000 0.00000 -0.03300" size="0.02850 0.02850 0.01050" class="arm"/>
+                          <geom type="mesh" mesh="flange_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+            <body name="shpitch_R" pos="0.00000 -0.36300 0.63750">
+              <joint name="shoulder_pitch_R" axis="0.00000 -1.00000 0.00000" range="-60 170" class="hj"/>
+              <inertial pos="0.00098 -0.07025 0.00065" mass="1.0014" fullinertia="0.001057 0.001022 0.001133 -0.000011 0.000012 0.000014"/>
+              <geom type="mesh" mesh="shpitch_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+              <geom type="mesh" mesh="shpitch_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+              <body name="shroll_R" pos="0.00000 -0.08400 0.00000">
+                <joint name="shoulder_roll_R" axis="-1.00000 0.00000 0.00000" range="-15 110" class="hj"/>
+                <inertial pos="-0.00128 0.00219 -0.06144" mass="0.2596" fullinertia="0.000142 0.000149 0.000169 -0.000001 -0.000002 0.000004"/>
+                <geom type="mesh" mesh="shroll_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+                <geom type="mesh" mesh="shroll_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                <body name="uarm_R" pos="0.00000 0.00000 -0.06150">
+                  <joint name="shoulder_yaw_R" axis="0.00000 0.00000 -1.00000" range="-90 90" class="hj"/>
+                  <inertial pos="0.01712 -0.00639 -0.12900" mass="2.1603" fullinertia="0.018358 0.021358 0.004598 -0.000192 -0.003620 -0.000708"/>
+                  <geom type="capsule" fromto="0.00000 0.00000 -0.02850 -0.00750 0.00000 -0.24600" size="0.0360" class="arm"/>
+                  <geom type="mesh" mesh="uarm_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+                  <geom type="mesh" mesh="uarm_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                  <body name="farm_R" pos="0.00000 0.00000 -0.26850">
+                    <joint name="elbow_R" axis="0.00000 -1.00000 0.00000" range="0 110" class="hj"/>
+                    <inertial pos="-0.01377 -0.00556 -0.01786" mass="0.4175" fullinertia="0.001134 0.001264 0.000507 0.000071 0.000404 -0.000014"/>
+                    <geom type="mesh" mesh="farm_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+                    <geom type="mesh" mesh="farm_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                    <body name="farm2_R" pos="0.00000 0.00000 -0.07950">
+                      <joint name="forearm_roll_R" axis="0.00000 0.00000 -1.00000" range="-90 90" class="hj"/>
+                      <inertial pos="0.02017 -0.01878 -0.08265" mass="0.7819" fullinertia="0.005010 0.005099 0.000850 0.000266 -0.000684 0.000594"/>
+                      <geom type="capsule" fromto="0.00000 0.00000 -0.00300 0.00000 0.00000 -0.17550" size="0.0300" class="arm"/>
+                      <geom type="mesh" mesh="farm2_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+                      <geom type="mesh" mesh="farm2_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                      <body name="wrist_R" pos="0.00000 0.00000 -0.16800">
+                        <joint name="wrist_pitch_R" axis="0.00000 -1.00000 0.00000" range="-70 70" class="hj"/>
+                        <inertial pos="0.00614 -0.00041 -0.04922" mass="0.1306" fullinertia="0.000038 0.000055 0.000050 0.000003 0.000001 0.000001"/>
+                        <geom type="mesh" mesh="wrist_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+                        <geom type="mesh" mesh="wrist_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                        <body name="flange_R" pos="0.00000 0.00000 -0.05400">
+                          <joint name="wrist_yaw_R" axis="-1.00000 0.00000 0.00000" range="-40 40" class="hj"/>
+                          <inertial pos="0.00002 -0.00011 -0.03163" mass="0.0721" fullinertia="0.000016 0.000016 0.000027 -0.000000 -0.000000 0.000000"/>
+                          <geom type="box" pos="0.00000 0.00000 -0.03300" size="0.02850 0.02850 0.01050" class="arm"/>
+                          <geom type="mesh" mesh="flange_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                          <geom type="mesh" mesh="flange_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hipyaw_L" pos="0.03750 0.12750 -0.04200">
+        <joint name="hip_yaw_L" axis="0.00000 0.00000 1.00000" range="-40 40" class="hj"/>
+        <inertial pos="0.01500 -0.00792 -0.05046" mass="0.7152" fullinertia="0.000685 0.001139 0.001160 0.000263 -0.000043 0.000008"/>
+        <geom type="mesh" mesh="hipyaw_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__hv" rgba="0.878 0.376 0.102 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+        <body name="hiproll_L" pos="0.00000 0.00000 -0.05700">
+          <joint name="hip_roll_L" axis="1.00000 0.00000 0.00000" range="-25 40" class="hj"/>
+          <inertial pos="0.00023 0.00049 -0.08371" mass="1.2626" fullinertia="0.002232 0.001883 0.002206 0.000028 -0.000013 -0.000017"/>
+          <geom type="mesh" mesh="hiproll_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+          <body name="thigh_L" pos="0.00000 0.00000 -0.08700">
+            <joint name="hip_pitch_L" axis="0.00000 -1.00000 0.00000" range="-30 120" class="hj"/>
+            <inertial pos="0.02563 0.02477 -0.21582" mass="3.8470" fullinertia="0.087807 0.082953 0.014093 -0.000700 -0.003724 -0.010747"/>
+            <geom type="capsule" fromto="0.00000 0.00000 -0.02293 0.00000 0.00000 -0.33566" size="0.0495" class="col"/>
+            <geom type="mesh" mesh="thigh_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__hv" rgba="0.878 0.376 0.102 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+            <body name="shin_L" pos="0.00000 0.00000 -0.35650">
+              <joint name="knee_L" axis="0.00000 1.00000 0.00000" range="0 140" class="hj"/>
+              <inertial pos="-0.02094 0.01050 -0.12349" mass="1.5391" fullinertia="0.020969 0.021797 0.004219 -0.000924 -0.001482 0.000170"/>
+              <geom type="capsule" fromto="0.00000 0.00000 -0.02250 -0.00750 0.00000 -0.34000" size="0.0390" class="col"/>
+              <geom type="mesh" mesh="shin_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__hv" rgba="0.878 0.376 0.102 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+              <geom type="mesh" mesh="shin_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+              <body name="ankspider_L" pos="0.00000 0.00000 -0.37750">
+                <joint name="ankle_pitch_L" axis="0.00000 1.00000 0.00000" range="-35 35" class="hj"/>
+                <inertial pos="0.00000 0.00000 0.00000" mass="0.0980" fullinertia="0.000017 0.000017 0.000031 0.000000 -0.000000 0.000000"/>
+                <geom type="mesh" mesh="ankspider_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                <geom type="mesh" mesh="ankspider_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                <body name="foot_L" pos="0.00000 0.00000 0.00000">
+                  <joint name="ankle_roll_L" axis="1.00000 0.00000 0.00000" range="-22 22" class="hj"/>
+                  <inertial pos="0.00248 -0.00687 0.02107" mass="1.7317" fullinertia="0.020038 0.023361 0.005104 -0.000232 0.003149 0.002480"/>
+                  <geom name="sole_L" type="box" pos="0.03000 0.00000 -0.05130" size="0.10650 0.04800 0.00800" class="sole"/>
+                  <site name="ft_L" pos="0.03 0 -0.0405"/>
+                  <geom type="mesh" mesh="foot_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__rubber" rgba="0.082 0.082 0.082 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_L__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hipyaw_R" pos="0.03750 -0.12750 -0.04200">
+        <joint name="hip_yaw_R" axis="0.00000 0.00000 1.00000" range="-40 40" class="hj"/>
+        <inertial pos="0.01498 0.00792 -0.05046" mass="0.7149" fullinertia="0.000685 0.001139 0.001160 -0.000263 -0.000044 -0.000008"/>
+        <geom type="mesh" mesh="hipyaw_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+        <geom type="mesh" mesh="hipyaw_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+        <body name="hiproll_R" pos="0.00000 0.00000 -0.05700">
+          <joint name="hip_roll_R" axis="1.00000 0.00000 0.00000" range="-40 25" class="hj"/>
+          <inertial pos="0.00024 -0.00049 -0.08371" mass="1.2626" fullinertia="0.002232 0.001883 0.002206 -0.000027 -0.000014 0.000017"/>
+          <geom type="mesh" mesh="hiproll_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+          <geom type="mesh" mesh="hiproll_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+          <body name="thigh_R" pos="0.00000 0.00000 -0.08700">
+            <joint name="hip_pitch_R" axis="0.00000 -1.00000 0.00000" range="-30 120" class="hj"/>
+            <inertial pos="0.02563 -0.02474 -0.21580" mass="3.8455" fullinertia="0.087781 0.082933 0.014083 0.000703 -0.003721 0.010750"/>
+            <geom type="capsule" fromto="0.00000 0.00000 -0.02293 0.00000 0.00000 -0.33566" size="0.0495" class="col"/>
+            <geom type="mesh" mesh="thigh_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__castMid" rgba="0.278 0.290 0.318 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+            <geom type="mesh" mesh="thigh_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+            <body name="shin_R" pos="0.00000 0.00000 -0.35650">
+              <joint name="knee_R" axis="0.00000 1.00000 0.00000" range="0 140" class="hj"/>
+              <inertial pos="-0.02095 -0.01049 -0.12350" mass="1.5380" fullinertia="0.020961 0.021790 0.004213 0.000923 -0.001478 -0.000173"/>
+              <geom type="capsule" fromto="0.00000 0.00000 -0.02250 -0.00750 0.00000 -0.34000" size="0.0390" class="col"/>
+              <geom type="mesh" mesh="shin_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__line" rgba="0.086 0.086 0.086 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__tagB" rgba="0.173 0.424 0.753 1" class="viz"/>
+              <geom type="mesh" mesh="shin_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+              <body name="ankspider_R" pos="0.00000 0.00000 -0.37750">
+                <joint name="ankle_pitch_R" axis="0.00000 1.00000 0.00000" range="-35 35" class="hj"/>
+                <inertial pos="0.00000 -0.00000 0.00000" mass="0.0980" fullinertia="0.000017 0.000017 0.000031 0.000000 0.000000 0.000000"/>
+                <geom type="mesh" mesh="ankspider_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                <geom type="mesh" mesh="ankspider_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                <body name="foot_R" pos="0.00000 0.00000 0.00000">
+                  <joint name="ankle_roll_R" axis="1.00000 0.00000 0.00000" range="-22 22" class="hj"/>
+                  <inertial pos="0.00248 0.00687 0.02107" mass="1.7317" fullinertia="0.020036 0.023360 0.005104 0.000232 0.003149 -0.002480"/>
+                  <geom name="sole_R" type="box" pos="0.03000 0.00000 -0.05130" size="0.10650 0.04800 0.00800" class="sole"/>
+                  <site name="ft_R" pos="0.03 0 -0.0405"/>
+                  <geom type="mesh" mesh="foot_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__bolt" rgba="0.663 0.678 0.702 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__loom" rgba="0.059 0.059 0.063 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__org" rgba="0.416 0.435 0.463 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__rubber" rgba="0.082 0.082 0.082 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+                  <geom type="mesh" mesh="foot_R__tagY" rgba="0.878 0.722 0.125 1" class="viz"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="mc_tribarrel_L" mocap="true">
+      <geom type="mesh" mesh="tribarrel_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="tribarrel_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="tribarrel_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="tribarrel_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_trirod_L" mocap="true">
+      <geom type="mesh" mesh="trirod_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="trirod_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_rocker_L" mocap="true">
+      <geom type="mesh" mesh="rocker_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="rocker_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="rocker_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_coupler_L" mocap="true">
+      <geom type="mesh" mesh="coupler_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+    </body>
+    <body name="mc_quadbarrel_L" mocap="true">
+      <geom type="mesh" mesh="quadbarrel_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_L__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_quadrod_L" mocap="true">
+      <geom type="mesh" mesh="quadrod_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="quadrod_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achbarrel_L0" mocap="true">
+      <geom type="mesh" mesh="achbarrel_L0__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_L0__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_L0__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_L0__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achbarrel_L1" mocap="true">
+      <geom type="mesh" mesh="achbarrel_L1__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_L1__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_L1__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_L1__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achrod_L0" mocap="true">
+      <geom type="mesh" mesh="achrod_L0__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achrod_L0__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achrod_L1" mocap="true">
+      <geom type="mesh" mesh="achrod_L1__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achrod_L1__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_tribarrel_R" mocap="true">
+      <geom type="mesh" mesh="tribarrel_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="tribarrel_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="tribarrel_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="tribarrel_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_trirod_R" mocap="true">
+      <geom type="mesh" mesh="trirod_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="trirod_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_rocker_R" mocap="true">
+      <geom type="mesh" mesh="rocker_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="rocker_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="rocker_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_coupler_R" mocap="true">
+      <geom type="mesh" mesh="coupler_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+    </body>
+    <body name="mc_quadbarrel_R" mocap="true">
+      <geom type="mesh" mesh="quadbarrel_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_R__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="quadbarrel_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_quadrod_R" mocap="true">
+      <geom type="mesh" mesh="quadrod_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="quadrod_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achbarrel_R0" mocap="true">
+      <geom type="mesh" mesh="achbarrel_R0__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_R0__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_R0__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_R0__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achbarrel_R1" mocap="true">
+      <geom type="mesh" mesh="achbarrel_R1__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_R1__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_R1__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achbarrel_R1__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achrod_R0" mocap="true">
+      <geom type="mesh" mesh="achrod_R0__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achrod_R0__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_achrod_R1" mocap="true">
+      <geom type="mesh" mesh="achrod_R1__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="achrod_R1__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_pumpshaft" mocap="true">
+      <geom type="mesh" mesh="pumpshaft__brass" rgba="0.820 0.655 0.227 1" class="viz"/>
+      <geom type="mesh" mesh="pumpshaft__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="pumpshaft__pinion" rgba="0.847 0.706 0.416 1" class="viz"/>
+      <geom type="mesh" mesh="pumpshaft__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+      <geom type="mesh" mesh="pumpshaft__tagR" rgba="0.769 0.188 0.118 1" class="viz"/>
+    </body>
+    <body name="mc_pumpring" mocap="true">
+      <geom type="mesh" mesh="pumpring__gear" rgba="0.722 0.737 0.761 1" class="viz"/>
+    </body>
+    <body name="mc_waistbarrel_L" mocap="true">
+      <geom type="mesh" mesh="waistbarrel_L__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="waistbarrel_L__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="waistbarrel_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="waistbarrel_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_waistrod_L" mocap="true">
+      <geom type="mesh" mesh="waistrod_L__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="waistrod_L__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_waistbarrel_R" mocap="true">
+      <geom type="mesh" mesh="waistbarrel_R__anod" rgba="0.110 0.118 0.133 1" class="viz"/>
+      <geom type="mesh" mesh="waistbarrel_R__cast" rgba="0.204 0.216 0.235 1" class="viz"/>
+      <geom type="mesh" mesh="waistbarrel_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="waistbarrel_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+    <body name="mc_waistrod_R" mocap="true">
+      <geom type="mesh" mesh="waistrod_R__mach" rgba="0.749 0.761 0.776 1" class="viz"/>
+      <geom type="mesh" mesh="waistrod_R__steel" rgba="0.855 0.867 0.882 1" class="viz"/>
+    </body>
+  </worldbody>
+  <actuator>
+    <general name="waist_yaw" joint="waist_yaw" gainprm="0" biasprm="0 0 0" ctrlrange="-40 40"/>
+    <general name="waist_pitch" joint="waist_pitch" gainprm="0" biasprm="0 0 0" ctrlrange="-25 25"/>
+    <general name="waist_roll" joint="waist_roll" gainprm="0" biasprm="0 0 0" ctrlrange="-20 20"/>
+    <general name="hip_yaw_L" joint="hip_yaw_L" gainprm="0" biasprm="0 0 0" ctrlrange="-40 40"/>
+    <general name="hip_roll_L" joint="hip_roll_L" gainprm="0" biasprm="0 0 0" ctrlrange="-25 40"/>
+    <general name="hip_pitch_L" joint="hip_pitch_L" gainprm="0" biasprm="0 0 0" ctrlrange="-30 120"/>
+    <general name="knee_L" joint="knee_L" gainprm="0" biasprm="0 0 0" ctrlrange="0 140"/>
+    <general name="ankle_pitch_L" joint="ankle_pitch_L" gainprm="0" biasprm="0 0 0" ctrlrange="-35 35"/>
+    <general name="ankle_roll_L" joint="ankle_roll_L" gainprm="0" biasprm="0 0 0" ctrlrange="-22 22"/>
+    <general name="hip_yaw_R" joint="hip_yaw_R" gainprm="0" biasprm="0 0 0" ctrlrange="-40 40"/>
+    <general name="hip_roll_R" joint="hip_roll_R" gainprm="0" biasprm="0 0 0" ctrlrange="-40 25"/>
+    <general name="hip_pitch_R" joint="hip_pitch_R" gainprm="0" biasprm="0 0 0" ctrlrange="-30 120"/>
+    <general name="knee_R" joint="knee_R" gainprm="0" biasprm="0 0 0" ctrlrange="0 140"/>
+    <general name="ankle_pitch_R" joint="ankle_pitch_R" gainprm="0" biasprm="0 0 0" ctrlrange="-35 35"/>
+    <general name="ankle_roll_R" joint="ankle_roll_R" gainprm="0" biasprm="0 0 0" ctrlrange="-22 22"/>
+    <general name="shoulder_pitch_L" joint="shoulder_pitch_L" gainprm="0" biasprm="0 0 0" ctrlrange="-60 170"/>
+    <general name="shoulder_roll_L" joint="shoulder_roll_L" gainprm="0" biasprm="0 0 0" ctrlrange="-15 110"/>
+    <general name="shoulder_yaw_L" joint="shoulder_yaw_L" gainprm="0" biasprm="0 0 0" ctrlrange="-90 90"/>
+    <general name="elbow_L" joint="elbow_L" gainprm="0" biasprm="0 0 0" ctrlrange="0 110"/>
+    <general name="forearm_roll_L" joint="forearm_roll_L" gainprm="0" biasprm="0 0 0" ctrlrange="-90 90"/>
+    <general name="wrist_pitch_L" joint="wrist_pitch_L" gainprm="0" biasprm="0 0 0" ctrlrange="-70 70"/>
+    <general name="wrist_yaw_L" joint="wrist_yaw_L" gainprm="0" biasprm="0 0 0" ctrlrange="-40 40"/>
+    <general name="shoulder_pitch_R" joint="shoulder_pitch_R" gainprm="0" biasprm="0 0 0" ctrlrange="-60 170"/>
+    <general name="shoulder_roll_R" joint="shoulder_roll_R" gainprm="0" biasprm="0 0 0" ctrlrange="-15 110"/>
+    <general name="shoulder_yaw_R" joint="shoulder_yaw_R" gainprm="0" biasprm="0 0 0" ctrlrange="-90 90"/>
+    <general name="elbow_R" joint="elbow_R" gainprm="0" biasprm="0 0 0" ctrlrange="0 110"/>
+    <general name="forearm_roll_R" joint="forearm_roll_R" gainprm="0" biasprm="0 0 0" ctrlrange="-90 90"/>
+    <general name="wrist_pitch_R" joint="wrist_pitch_R" gainprm="0" biasprm="0 0 0" ctrlrange="-70 70"/>
+    <general name="wrist_yaw_R" joint="wrist_yaw_R" gainprm="0" biasprm="0 0 0" ctrlrange="-40 40"/>
+  </actuator>
+  <sensor>
+    <gyro name="gyro" site="imu"/>
+    <accelerometer name="accel" site="imu"/>
+    <force name="ft_force_L" site="ft_L"/>
+    <torque name="ft_torque_L" site="ft_L"/>
+    <force name="ft_force_R" site="ft_R"/>
+    <torque name="ft_torque_R" site="ft_R"/>
+  </sensor>
+</mujoco>

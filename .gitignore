@@ -1,0 +1,23 @@
+# environment / caches
+.venv/
+__pycache__/
+*.pyc
+.jax_cache/
+runs/.jax_cache/
+
+# training outputs (large; keep only one demo policy)
+runs/*
+!runs/walk5/
+runs/walk5/*
+!runs/walk5/policy.pkl
+live.npz
+*.tar.gz
+
+# regenerable dumps / logs
+MJMODEL.TXT
+MUJOCO_LOG.TXT
+
+# secrets (none today, just in case)
+.env
+*.pem
+id_*
