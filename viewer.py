@@ -2,6 +2,7 @@
 
 usage:  python viewer.py                       # starts in STAND mode (demo balance controller)
         python viewer.py runs/walk/params.pkl  # policy available (key 3)
+        python viewer.py runs/walk5/policy.pkl --nnb   # + watch the policy network live in NNB (needs nnb_live.py)
 
 modes   1 = STAND   balance controller keeps the robot upright
         2 = MANUAL  you drive every joint with the sliders in the right-hand "Control" panel (degrees).
@@ -24,6 +25,15 @@ torso = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, 'torso'); pelvis = mujoco
 act_of_joint = np.array([mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_ACTUATOR, n) for n in hy.JOINTS])   # slider index per joint
 SLOW = [1, 4, 10, 40, 100]
 st = dict(cmd=np.zeros(3), motor=1.0, push=0, reset=False, mode=1, slow=0, gantry=False, g_pos=None, g_quat=None, pump=0.0, acc=0.0)
+
+# --nnb: stream the policy's inputs (+ the action taken) to NNB (Neural Network Builder) to watch the network live.
+# NNB listens on UDP 127.0.0.1:7401 while a space with the policy block is open; NNB_HOST=<ip> for another PC.
+NNB = None
+if '--nnb' in sys.argv:
+    sys.argv.remove('--nnb')
+    from nnb_live import NNBLink
+    NNB = NNBLink(os.environ.get('NNB_HOST', '127.0.0.1'))
+    print('[nnb] streaming policy inputs to %s:%d' % NNB.addr)
 
 policy = None
 if len(sys.argv) > 1:
@@ -93,6 +103,7 @@ with mujoco.viewer.launch_passive(m, d, key_callback=key) as v:
                 obs = obs_fn(jnp.array(d.qpos), jnp.array(d.qvel), S.h, info)
                 a, _ = policy({'state': obs, 'privileged_state': jnp.zeros(env.observation_size['privileged_state'])}, jax.random.PRNGKey(0))
                 a = np.clip(np.array(a), -1, 1); q_tgt = np.clip(S.q0 + a * env.action_scale, np.array(env.jlo), np.array(env.jhi))
+                if NNB is not None: NNB.send(np.asarray(obs), a, d.time)
                 info.update(last_act=jnp.array(a), phase=jnp.mod(info['phase'] + 2 * np.pi * float(env.phase_freq(info['cmd'])) * 0.02, 2 * np.pi))
             elif mode == 2: q_tgt = np.radians(d.ctrl[act_of_joint])
             elif mode == 1: q_tgt = sc.stand_targets(S)

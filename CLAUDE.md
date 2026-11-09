@@ -38,6 +38,7 @@ source .venv/bin/activate
 python train_walk.py --run runs/walk6 --init runs/walk5/ckpt.pkl   # 기존 체크포인트에서 이어서 학습 (관측 구조가 같을 때만)
 python watch.py runs/walk6                                         # 다른 터미널에서 실시간 관찰
 python viewer.py runs/walk6/policy.pkl                             # 시연 (3번 키). 학습 중간의 ckpt도 쓸 수 있다
+python viewer.py runs/walk6/policy.pkl --nnb                       # + NNB(Neural Network Builder)에서 정책 신경망을 실시간으로 본다. nnb_live.py가 UDP 127.0.0.1:7401로 관측·행동을 보낸다 (NNB에서 walking policy 공간을 열어 둘 것)
 # 변경 후 검증용 짧은 학습:
 python train_walk.py --run /tmp/rt --envs 32 --fast-steps 3000 --full-steps 0
 ```
