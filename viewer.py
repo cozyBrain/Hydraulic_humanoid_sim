@@ -2,7 +2,7 @@
 
 usage:  python viewer.py                       # starts in STAND mode (demo balance controller)
         python viewer.py runs/walk/params.pkl  # policy available (key 3)
-        python viewer.py runs/walk5/policy.pkl --nnb   # + watch the policy network live in NNB (needs nnb_live.py)
+        python viewer.py runs/walk6/policy.pkl --nnb   # + watch the policy network live in NNB (needs nnb_live.py)
 
 modes   1 = STAND   balance controller keeps the robot upright
         2 = MANUAL  you drive every joint with the sliders in the right-hand "Control" panel (degrees).
@@ -103,7 +103,7 @@ with mujoco.viewer.launch_passive(m, d, key_callback=key) as v:
                 obs = obs_fn(jnp.array(d.qpos), jnp.array(d.qvel), S.h, info)
                 a, _ = policy({'state': obs, 'privileged_state': jnp.zeros(env.observation_size['privileged_state'])}, jax.random.PRNGKey(0))
                 a = np.clip(np.array(a), -1, 1); q_tgt = np.clip(S.q0 + a * env.action_scale, np.array(env.jlo), np.array(env.jhi))
-                if NNB is not None: NNB.send(np.asarray(obs), a, d.time)
+                if NNB is not None: NNB.send(np.asarray(obs), a, d.time, qpos=d.qpos, pump_w=float(S.h['w']))   # + robot pose, pump speed (NNB preview)
                 info.update(last_act=jnp.array(a), phase=jnp.mod(info['phase'] + 2 * np.pi * float(env.phase_freq(info['cmd'])) * 0.02, 2 * np.pi))
             elif mode == 2: q_tgt = np.radians(d.ctrl[act_of_joint])
             elif mode == 1: q_tgt = sc.stand_targets(S)

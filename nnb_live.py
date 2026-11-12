@@ -9,10 +9,12 @@ if NNB is not running, packets are simply dropped.
 
     from nnb_live import NNBLink
     link = NNBLink()                       # 127.0.0.1:7401
-    link.send(obs, act, t=d.time)          # obs: 128 floats, act: 29 floats (or None)
+    link.send(obs, act, t=d.time, qpos=d.qpos, pump_w=w)   # obs: 128 floats, act: 29 floats (or None); qpos, pump_w optional
 
-Packet (little-endian): "NNBL" u8 version=1, u8 flags=0, u16 n_obs, u16 n_act, s16 block (0 = first block whose
-input size is n_obs), f64 sim time, f32 obs[n_obs], f32 act[n_act].
+Packet (little-endian): "NNBL" u8 version=1, u8 flags, u16 n_obs, u16 n_act, s16 block (0 = first block whose
+input size is n_obs), f64 sim time, f32 obs[n_obs], f32 act[n_act];
+flags bit 0: then u16 n_qpos, f32 qpos[n_qpos] (the robot's full MuJoCo qpos: NNB poses its robot preview with it);
+flags bit 1: then f32 pump shaft speed [rad/s] (NNB turns the preview's pump in proportion).
 """
 import socket
 import struct
@@ -29,11 +31,17 @@ class NNBLink:
         self.sock.setblocking(False)
         self.sent = 0
 
-    def send(self, obs, act=None, t=0.0):
+    def send(self, obs, act=None, t=0.0, qpos=None, pump_w=None):
         obs = [float(x) for x in obs]
         act = [] if act is None else [float(x) for x in act]
-        pkt = HEADER.pack(b'NNBL', 1, 0, len(obs), len(act), self.block, float(t))
+        flags = (0 if qpos is None else 1) | (0 if pump_w is None else 2)
+        pkt = HEADER.pack(b'NNBL', 1, flags, len(obs), len(act), self.block, float(t))
         pkt += struct.pack('<%df' % (len(obs) + len(act)), *obs, *act)
+        if qpos is not None:
+            q = [float(x) for x in qpos]
+            pkt += struct.pack('<H%df' % len(q), len(q), *q)
+        if pump_w is not None:
+            pkt += struct.pack('<f', float(pump_w))
         try:
             self.sock.sendto(pkt, self.addr)
             self.sent += 1

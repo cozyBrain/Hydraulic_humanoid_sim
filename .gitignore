@@ -5,11 +5,14 @@ __pycache__/
 .jax_cache/
 runs/.jax_cache/
 
-# training outputs (large; keep only one demo policy)
+# training outputs (large; keep only the demo policies)
 runs/*
 !runs/walk5/
 runs/walk5/*
 !runs/walk5/policy.pkl
+!runs/walk6/
+runs/walk6/*
+!runs/walk6/policy.pkl
 live.npz
 *.tar.gz
 
