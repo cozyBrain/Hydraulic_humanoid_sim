@@ -89,6 +89,18 @@ def gantry_force():
     Tq = 4000 * rv - 400 * (d.xmat[pelvis].reshape(3, 3) @ d.qvel[3:6])       # free-joint ang. velocity is body-frame -> world
     return F, Tq
 
+FOOT = {mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, n): k for k, n in enumerate(('foot_L', 'foot_R'))}
+def foot_forces():
+    """normal contact force on each foot [N] (the sound plays a footstep when one rises)"""
+    f = [0.0, 0.0]; c6 = np.zeros(6)
+    for i in range(d.ncon):
+        c = d.contact[i]
+        for g in (c.geom1, c.geom2):
+            k = FOOT.get(int(m.geom_bodyid[g]))
+            if k is not None:
+                mujoco.mj_contactForce(m, d, i, c6); f[k] += abs(c6[0]); break
+    return f
+
 info = reset(); q_tgt = S.q0.copy(); t_ctrl = 0; diag = None
 import sound; SND = sound.try_open()          # optional live audio (N = mute)
 with mujoco.viewer.launch_passive(m, d, key_callback=key) as v:
@@ -130,8 +142,9 @@ with mujoco.viewer.launch_passive(m, d, key_callback=key) as v:
             info['Ps'] = diag['Ps']; st['pump'] += float(S.h['w']) * 0.001      # real pump shaft angle (sim time)
         poser(d, st['pump']); v.sync()
         if SND is not None and diag is not None:
+            fl, fr = foot_forces()                                                  # footsteps
             SND.update(rpm=float(S.h['w']) * 9.549, Ps=float(diag['Ps']) / 1e5, Pel=float(diag['Pel']), Q=float(diag['Qdraw']) * 60000,
-                       slow=SLOW[st['slow']], on=st['motor'])
+                       slow=SLOW[st['slow']], on=st['motor'], fl=fl, fr=fr)
         if diag is not None:
             try:
                 q = d.qpos[S.qadr]; err = np.degrees(np.abs(q_tgt - q)).max()
