@@ -19,7 +19,7 @@ flags bit 2: the action came from the network as edited in NNB (see below).
 
 Edited brain in the simulation: NNB answers on the same socket with the edits made to the block (switched-off neurons,
 fixed values), as "NNBE" u8 version=1 + UTF-8 JSON {"on": bool, "off": [[layer, index], ...], "fixed": [[layer, index,
-activation], ...]} (layer 0 = input, 1.. = dense layers), whenever they change and once a second. The simulation then runs
+activation], ...]} (layer 0 = input, fixed in normalised units; 1.. = dense layers), whenever they change and once a second. The simulation then runs
 the policy itself with those edits applied:
     link.use_policy(params)                 # once: the Brax params (normaliser, policy, value) the viewer loaded
     a = link.edited_action(obs) or a        # each policy step: None while NNB has no edits switched on
@@ -99,6 +99,7 @@ class NNBLink:
         for l, i in e.get('off', []): off.setdefault(int(l), []).append(int(i))
         for l, i, v in e.get('fixed', []): fixed.setdefault(int(l), []).append((int(i), float(v)))
         h = (np.asarray(obs, np.float64) - mean) / std
+        for i, v in fixed.get(0, []): h[i] = v       # an input fixed in NNB (normalised units), whatever the sensor says
         h[off.get(0, [])] = 0.0
         for k, (W, b, act) in enumerate(layers, start=1):
             z = h @ W + b
