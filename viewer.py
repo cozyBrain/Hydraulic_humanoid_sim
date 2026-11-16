@@ -44,7 +44,9 @@ if len(sys.argv) > 1:
     nets = ppo_networks.make_ppo_networks(env.observation_size, hy.NA, preprocess_observations_fn=running_statistics.normalize,
                                           policy_hidden_layer_sizes=(512, 256, 128), value_hidden_layer_sizes=(512, 256, 256, 128),
                                           policy_obs_key='state', value_obs_key='privileged_state')
-    policy = jax.jit(ppo_networks.make_inference_fn(nets)(pickle.load(open(sys.argv[1], 'rb')), deterministic=True))
+    params = pickle.load(open(sys.argv[1], 'rb'))
+    policy = jax.jit(ppo_networks.make_inference_fn(nets)(params, deterministic=True))
+    if NNB is not None: NNB.use_policy(params)   # NNB can switch neurons off / fix values: the robot then walks with that brain
     obs_fn = jax.jit(lambda qpos, qvel, h, info: obs_core(env, qpos, qvel, h, info))
 
 def key(k):
@@ -102,7 +104,11 @@ with mujoco.viewer.launch_passive(m, d, key_callback=key) as v:
                 info['cmd'] = jnp.array(st['cmd'], jnp.float32)
                 obs = obs_fn(jnp.array(d.qpos), jnp.array(d.qvel), S.h, info)
                 a, _ = policy({'state': obs, 'privileged_state': jnp.zeros(env.observation_size['privileged_state'])}, jax.random.PRNGKey(0))
-                a = np.clip(np.array(a), -1, 1); q_tgt = np.clip(S.q0 + a * env.action_scale, np.array(env.jlo), np.array(env.jhi))
+                a = np.clip(np.array(a), -1, 1)
+                if NNB is not None:
+                    ae = NNB.edited_action(np.asarray(obs))   # None unless NNB sends edits (HUD: "Edits -> sim")
+                    if ae is not None: a = ae
+                q_tgt = np.clip(S.q0 + a * env.action_scale, np.array(env.jlo), np.array(env.jhi))
                 if NNB is not None: NNB.send(np.asarray(obs), a, d.time, qpos=d.qpos, pump_w=float(S.h['w']))   # + robot pose, pump speed (NNB preview)
                 info.update(last_act=jnp.array(a), phase=jnp.mod(info['phase'] + 2 * np.pi * float(env.phase_freq(info['cmd'])) * 0.02, 2 * np.pi))
             elif mode == 2: q_tgt = np.radians(d.ctrl[act_of_joint])
